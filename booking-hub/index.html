@@ -3,164 +3,423 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Family Friendly Room in Leuven - Booking Links</title>
-  <meta name="description" content="Book our family friendly room in Leuven via Airbnb or Booking.com."/>
+  <title>The Nest in Leuven - Book Your Stay</title>
+  <meta name="description" content="Book The Nest in Leuven - Family friendly, cosy room in Leuven via Airbnb or Booking.com."/>
   <style>
     :root {
-      --bg: #f4ecdc;
-      --card: rgba(255,255,255,.72);
-      --text: #2d2019;
-      --muted: #63402d;
-      --accent: #7c9060;
-      --shadow: 0 12px 32px rgba(45,32,25,.18);
-      --radius: 18px;
+      --primary: #FF5A5F;
+      --primary-dark: #E04A4F;
+      --secondary: #00A699;
+      --bg: linear-gradient(135deg, #f8f5f0 0%, #fff 50%, #f5f1eb 100%);
+      --card: rgba(255, 255, 255, 0.95);
+      --text: #2d3436;
+      --text-light: #636e72;
+      --muted: #b2bec3;
+      --accent: #ffeaa7;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.18);
+      --radius: 20px;
+      --radius-small: 12px;
     }
-    * { box-sizing: border-box; }
+    
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,.7), transparent 45%),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,.5), transparent 50%),
-        linear-gradient(180deg, #e9d4b0 0%, var(--bg) 55%, #efe2cb 100%);
+      background: var(--bg);
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 26px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      line-height: 1.6;
     }
-    .wrap {
+    
+    .container {
       width: 100%;
-      max-width: 720px;
+      max-width: 900px;
+      animation: fadeIn 0.6s ease-out;
     }
-    .hero {
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .header {
       text-align: center;
-      margin-bottom: 18px;
+      margin-bottom: 40px;
+      padding: 20px;
     }
-    h1 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(28px, 4vw, 44px);
-      margin: 0 0 6px;
-      letter-spacing: .2px;
+    
+    .logo {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
     }
-    .sub {
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
+    
+    .tagline {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--text-light);
+      font-weight: 400;
+      margin-bottom: 8px;
     }
+    
+    .location {
+      font-size: 14px;
+      color: var(--text-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+    
     .card {
       background: var(--card);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(99,64,45,.18);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding: 35px;
+      margin-bottom: 25px;
     }
-    .grid {
+    
+    .section {
+      margin-bottom: 35px;
+    }
+    
+    .section:last-of-type {
+      margin-bottom: 0;
+    }
+    
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 2px;
+    }
+    
+    .booking-grid {
       display: grid;
-      gap: 14px;
+      gap: 15px;
       grid-template-columns: 1fr;
     }
-    @media (min-width: 720px) {
-      .grid { grid-template-columns: 1fr 1fr; }
+    
+    @media (min-width: 768px) {
+      .booking-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
-    .section-title {
-      margin: 0 0 10px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: .2px;
-    }
-    .btn {
+    
+    .booking-btn {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      width: 100%;
+      gap: 15px;
+      padding: 18px 22px;
+      background: #fff;
+      border: 2px solid #e9ecef;
+      border-radius: var(--radius-small);
       text-decoration: none;
-      padding: 14px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(99,64,45,.18);
-      background: rgba(255,255,255,.8);
       color: var(--text);
-      transition: transform .06s ease, box-shadow .2s ease, border-color .2s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
-    .btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(124,144,96,.55);
-      box-shadow: 0 10px 22px rgba(45,32,25,.12);
+    
+    .booking-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
     }
-    .pill {
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(124,144,96,.14);
-      color: var(--accent);
-      border: 1px solid rgba(124,144,96,.25);
-      white-space: nowrap;
+    
+    .booking-btn:hover::before {
+      left: 100%;
     }
-    .foot {
-      margin-top: 14px;
+    
+    .booking-btn:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .booking-btn-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    
+    .platform-logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .airbnb-btn .platform-logo {
+      color: var(--primary);
+    }
+    
+    .booking-btn.booking-com .platform-logo {
+      color: var(--secondary);
+    }
+    
+    .booking-btn-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .booking-btn-title {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--text);
+    }
+    
+    .booking-btn-subtitle {
       font-size: 13px;
-      color: rgba(45,32,25,.75);
-      line-height: 1.5;
+      color: var(--text-light);
     }
-    .meta {
+    
+    .arrow-icon {
+      font-size: 20px;
+      color: var(--text-light);
+      transition: transform 0.3s ease;
+    }
+    
+    .booking-btn:hover .arrow-icon {
+      transform: translateX(5px);
+      color: var(--primary);
+    }
+    
+    .info-section {
+      background: rgba(255, 234, 167, 0.2);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius-small);
+      padding: 20px;
+      margin-top: 30px;
+    }
+    
+    .info-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 15px;
+    }
+    
+    .info-grid {
       display: grid;
-      gap: 6px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed rgba(99,64,45,.25);
-      color: rgba(45,32,25,.8);
+      gap: 12px;
       font-size: 14px;
+      color: var(--text);
     }
-    .meta b { color: var(--muted); }
+    
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: flex-start;
+    }
+    
+    .info-item {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .info-item-full {
+      min-width: 100%;
+    }
+    
+    .info-label {
+      font-weight: 600;
+      color: var(--text-light);
+      min-width: 70px;
+    }
+    
+    .info-value {
+      color: var(--text);
+      word-break: break-word;
+    }
+    
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-light);
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: var(--radius-small);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+    
+    .info-link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    
+    .info-link:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+    
+    .footer-icon {
+      font-size: 18px;
+      margin-right: 6px;
+    }
+    
+    @media (max-width: 768px) {
+      .card {
+        padding: 25px 20px;
+      }
+      
+      .info-item {
+        min-width: 100%;
+      }
+      
+      .header {
+        margin-bottom: 30px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <h1>Family Friendly Room in Leuven</h1>
-      <p class="sub">Choose your preferred platform to book in seconds.</p>
+  <div class="container">
+    <div class="header">
+      <div class="logo">The Nest in Leuven</div>
+      <div class="tagline">Family friendly / Cosy room in Leuven</div>
+      <div class="location">
+        📍 Leuven, Belgium
+      </div>
     </div>
 
     <div class="card">
-      <div class="grid">
-        <div>
-          <p class="section-title">Book on Airbnb</p>
-          <a class="btn" href="https://www.airbnb.co.uk/rooms/1182753856160924238" target="_blank" rel="noopener">
-            <span>Airbnb - Listing 1</span>
-            <span class="pill">Open</span>
+      <div class="section">
+        <div class="section-title">Book on Airbnb</div>
+        <div class="booking-grid">
+          <a class="booking-btn airbnb-btn" href="https://www.airbnb.co.uk/rooms/1182753856160924238" target="_blank" rel="noopener noreferrer">
+            <div class="booking-btn-content">
+              <div class="platform-logo">airbnb</div>
+              <div class="booking-btn-text">
+                <span class="booking-btn-title">Listing 1</span>
+                <span class="booking-btn-subtitle">View availability</span>
+              </div>
+            </div>
+            <span class="arrow-icon">→</span>
           </a>
-          <div style="height:10px"></div>
-          <a class="btn" href="https://www.airbnb.co.uk/rooms/1161040447296054100" target="_blank" rel="noopener">
-            <span>Airbnb - Listing 2</span>
-            <span class="pill">Open</span>
-          </a>
-        </div>
-
-        <div>
-          <p class="section-title">Book on Booking.com</p>
-          <a class="btn" href="https://www.booking.com/Pulse-VU2ITG" target="_blank" rel="noopener">
-            <span>Booking.com - Property 1</span>
-            <span class="pill">Open</span>
-          </a>
-          <div style="height:10px"></div>
-          <a class="btn" href="https://www.booking.com/Pulse-wJS7Nk" target="_blank" rel="noopener">
-            <span>Booking.com - Property 2</span>
-            <span class="pill">Open</span>
+          
+          <a class="booking-btn airbnb-btn" href="https://www.airbnb.co.uk/rooms/1161040447296054100" target="_blank" rel="noopener noreferrer">
+            <div class="booking-btn-content">
+              <div class="platform-logo">airbnb</div>
+              <div class="booking-btn-text">
+                <span class="booking-btn-title">Listing 2</span>
+                <span class="booking-btn-subtitle">View availability</span>
+              </div>
+            </div>
+            <span class="arrow-icon">→</span>
           </a>
         </div>
       </div>
 
-      <div class="meta">
-        <div><b>Host:</b> Bikash Adhakari &nbsp; <b>Co-Host:</b> Sangita Bhandari</div>
-        <div><b>Phone:</b> +32 478 941 255 &nbsp; <b>Email:</b> tourist.accomodation@outlook.com</div>
-        <div><b>Location:</b> Leuvensestraat 27, 3010 Kessel-Lo, Leuven</div>
+      <div class="section">
+        <div class="section-title">Book on Booking.com</div>
+        <div class="booking-grid">
+          <a class="booking-btn booking-com" href="https://www.booking.com/Pulse-VU2ITG" target="_blank" rel="noopener noreferrer">
+            <div class="booking-btn-content">
+              <div class="platform-logo">Booking.com</div>
+              <div class="booking-btn-text">
+                <span class="booking-btn-title">Property 1</span>
+                <span class="booking-btn-subtitle">Check rates</span>
+              </div>
+            </div>
+            <span class="arrow-icon">→</span>
+          </a>
+          
+          <a class="booking-btn booking-com" href="https://www.booking.com/Pulse-wJS7Nk" target="_blank" rel="noopener noreferrer">
+            <div class="booking-btn-content">
+              <div class="platform-logo">Booking.com</div>
+              <div class="booking-btn-text">
+                <span class="booking-btn-title">Property 2</span>
+                <span class="booking-btn-subtitle">Check rates</span>
+              </div>
+            </div>
+            <span class="arrow-icon">→</span>
+          </a>
+        </div>
       </div>
 
-      <p class="foot">
-        Tip: If you scanned a QR code from our visiting card, you can bookmark this page for next time.
-      </p>
+      <div class="info-section">
+        <div class="info-title">Contact Information</div>
+        <div class="info-grid">
+          <div class="info-row">
+            <div class="info-item">
+              <span class="info-label">Host:</span>
+              <span class="info-value">Bikash Adhakari</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Co-Host:</span>
+              <span class="info-value">Sangita Bhandari</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-item">
+              <span class="info-label">Phone:</span>
+              <span class="info-value"><a href="tel:+32478941255" class="info-link">+32 478 941 255</a></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Email:</span>
+              <span class="info-value"><a href="mailto:tourist.accomodation@outlook.com" class="info-link">tourist.accomodation@outlook.com</a></span>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-item info-item-full">
+              <span class="info-label">Location:</span>
+              <span class="info-value">Leuvensestraat 27, 3010 Kessel-Lo, Leuven</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-icon">💡</span>
+      <strong>Tip:</strong> If you scanned a QR code from our visiting card, you can bookmark this page for easy access next time.
     </div>
   </div>
 </body>
