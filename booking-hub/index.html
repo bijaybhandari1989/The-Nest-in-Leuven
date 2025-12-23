@@ -1,10 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>The Nest in Leuven - Book Your Stay</title>
-  <meta name="description" content="Book The Nest in Leuven - Family friendly, cosy room in Leuven via Airbnb or Booking.com."/>
+  <meta name="description" content="Book The Nest in Leuven - Family friendly, cosy room in Leuven via Airbnb or Booking.com.">
   <style>
     :root {
       --primary: #FF5A5F;
@@ -66,12 +67,19 @@
     .logo {
       font-size: clamp(36px, 6vw, 56px);
       font-weight: 700;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--primary);
       margin-bottom: 12px;
       letter-spacing: -0.5px;
+    }
+    
+    @supports (-webkit-background-clip: text) or (background-clip: text) {
+      .logo {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      }
     }
     
     .tagline {
