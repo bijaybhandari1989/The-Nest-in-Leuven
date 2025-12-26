@@ -312,6 +312,45 @@
       margin-right: 6px;
     }
     
+    .contact-icons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .contact-icon-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s ease;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    
+    .contact-icon-link:hover {
+      background: rgba(255, 90, 95, 0.1);
+      color: var(--primary);
+    }
+    
+    .contact-icon {
+      font-size: 18px;
+    }
+    
+    .whatsapp-icon {
+      color: #25D366;
+    }
+    
+    .contact-icon-link:hover .whatsapp-icon {
+      color: #25D366;
+    }
+    
+    .phone-icon {
+      color: var(--primary);
+    }
+    
     @media (max-width: 768px) {
       .card {
         padding: 25px 20px;
@@ -408,7 +447,18 @@
           <div class="info-row">
             <div class="info-item">
               <span class="info-label">Phone:</span>
-              <span class="info-value"><a href="tel:+32478941255" class="info-link">+32 478 941 255</a></span>
+              <span class="info-value">
+                <div class="contact-icons">
+                  <a href="tel:+32478941255" class="contact-icon-link">
+                    <span class="contact-icon phone-icon">📞</span>
+                    <span>+32 478 941 255</span>
+                  </a>
+                  <a href="https://wa.me/32478941255" target="_blank" rel="noopener noreferrer" class="contact-icon-link">
+                    <span class="contact-icon whatsapp-icon">💬</span>
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </span>
             </div>
             <div class="info-item">
               <span class="info-label">Email:</span>
