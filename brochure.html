@@ -541,6 +541,99 @@
       transform: translateX(4px);
     }
 
+    .platform-qr-row {
+      display: flex;
+      gap: 16px;
+      padding: 0 28px 28px;
+      flex-wrap: wrap;
+    }
+
+    .qr-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .qr-item img {
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      display: block;
+    }
+
+    .qr-item-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    /* ─── SCAN STRIP ─── */
+    .scan-section {
+      margin-top: 80px;
+    }
+
+    .scan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    .scan-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 28px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      color: var(--text);
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+    }
+
+    .scan-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .scan-card.airbnb-card:hover { border-color: var(--primary); }
+    .scan-card.booking-card:hover { border-color: var(--secondary); }
+    .scan-card.whatsapp-card:hover { border-color: #25D366; }
+
+    .scan-card img {
+      width: 110px;
+      height: 110px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+    }
+
+    .scan-card-platform {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .scan-card.airbnb-card .scan-card-platform { color: var(--primary); }
+    .scan-card.booking-card .scan-card-platform { color: var(--secondary); }
+    .scan-card.whatsapp-card .scan-card-platform { color: #25D366; }
+
+    .scan-card-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.4;
+    }
+
     /* ─── CONTACT ─── */
     .contact-section {
       margin-top: 80px;
@@ -766,6 +859,7 @@
       .hero-title { color: var(--text); }
       .hero-title span { -webkit-text-fill-color: var(--primary); color: var(--primary); }
       .hero-sub, .hero-meta-item { color: var(--text-light); }
+      .scan-card img, .qr-item img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
@@ -977,6 +1071,16 @@
               <span class="listing-link-arrow">→</span>
             </a>
           </div>
+          <div class="platform-qr-row">
+            <div class="qr-item">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=FF5A5F&bgcolor=ffffff&data=https%3A%2F%2Fwww.airbnb.co.uk%2Frooms%2F1182753856160924238" alt="QR for Airbnb Listing 1" loading="lazy">
+              <span class="qr-item-label">Listing 1</span>
+            </div>
+            <div class="qr-item">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=FF5A5F&bgcolor=ffffff&data=https%3A%2F%2Fwww.airbnb.co.uk%2Frooms%2F1161040447296054100" alt="QR for Airbnb Listing 2" loading="lazy">
+              <span class="qr-item-label">Listing 2</span>
+            </div>
+          </div>
         </div>
 
         <!-- Booking.com -->
@@ -995,8 +1099,57 @@
               <span class="listing-link-arrow">→</span>
             </a>
           </div>
+          <div class="platform-qr-row">
+            <div class="qr-item">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=00A699&bgcolor=ffffff&data=https%3A%2F%2Fwww.booking.com%2FPulse-VU2ITG" alt="QR for Booking.com Property 1" loading="lazy">
+              <span class="qr-item-label">Property 1</span>
+            </div>
+            <div class="qr-item">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&color=00A699&bgcolor=ffffff&data=https%3A%2F%2Fwww.booking.com%2FPulse-wJS7Nk" alt="QR for Booking.com Property 2" loading="lazy">
+              <span class="qr-item-label">Property 2</span>
+            </div>
+          </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ── SCAN TO BOOK ── -->
+    <section class="scan-section">
+      <div class="section-label">Scan &amp; Book</div>
+      <h2 class="section-heading">Point your camera to get started</h2>
+      <p class="section-desc">No typing needed — scan any QR code below to go directly to that listing or reach us on WhatsApp.</p>
+
+      <div class="scan-grid">
+        <a class="scan-card airbnb-card" href="https://www.airbnb.co.uk/rooms/1182753856160924238" target="_blank" rel="noopener noreferrer">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&color=FF5A5F&bgcolor=ffffff&data=https%3A%2F%2Fwww.airbnb.co.uk%2Frooms%2F1182753856160924238" alt="Scan to open Airbnb Listing 1" loading="lazy">
+          <span class="scan-card-platform">airbnb</span>
+          <span class="scan-card-label">Listing 1</span>
+        </a>
+
+        <a class="scan-card airbnb-card" href="https://www.airbnb.co.uk/rooms/1161040447296054100" target="_blank" rel="noopener noreferrer">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&color=FF5A5F&bgcolor=ffffff&data=https%3A%2F%2Fwww.airbnb.co.uk%2Frooms%2F1161040447296054100" alt="Scan to open Airbnb Listing 2" loading="lazy">
+          <span class="scan-card-platform">airbnb</span>
+          <span class="scan-card-label">Listing 2</span>
+        </a>
+
+        <a class="scan-card booking-card" href="https://www.booking.com/Pulse-VU2ITG" target="_blank" rel="noopener noreferrer">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&color=00A699&bgcolor=ffffff&data=https%3A%2F%2Fwww.booking.com%2FPulse-VU2ITG" alt="Scan to open Booking.com Property 1" loading="lazy">
+          <span class="scan-card-platform">Booking.com</span>
+          <span class="scan-card-label">Property 1</span>
+        </a>
+
+        <a class="scan-card booking-card" href="https://www.booking.com/Pulse-wJS7Nk" target="_blank" rel="noopener noreferrer">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&color=00A699&bgcolor=ffffff&data=https%3A%2F%2Fwww.booking.com%2FPulse-wJS7Nk" alt="Scan to open Booking.com Property 2" loading="lazy">
+          <span class="scan-card-platform">Booking.com</span>
+          <span class="scan-card-label">Property 2</span>
+        </a>
+
+        <a class="scan-card whatsapp-card" href="https://wa.me/32478941255" target="_blank" rel="noopener noreferrer">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&color=25D366&bgcolor=ffffff&data=https%3A%2F%2Fwa.me%2F32478941255" alt="Scan to open WhatsApp" loading="lazy">
+          <span class="scan-card-platform">WhatsApp</span>
+          <span class="scan-card-label">Message your host</span>
+        </a>
       </div>
     </section>
 
