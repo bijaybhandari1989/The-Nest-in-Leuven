@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Nest in Leuven — Print Brochure</title>
+  <style>
+    /* ─── BASE ─── */
+    :root {
+      --primary: #FF5A5F;
+      --primary-dark: #E04A4F;
+      --secondary: #00A699;
+      --gold: #D4A853;
+      --text: #1a1a2e;
+      --text-light: #4a4a6a;
+      --text-muted: #8888aa;
+      --border: #e0e0e8;
+      --white: #ffffff;
+      --off-white: #fafaf8;
+      --dark: #0f0f1a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #d0d0d0;
+      color: var(--text);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─── SCREEN: show pages as cards ─── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: white;
+      margin: 24px auto;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ─── PRINT: real A4 pages ─── */
+    @media print {
+      body { background: white; margin: 0; }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .page:last-child { page-break-after: auto; }
+      .no-print { display: none !important; }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+    }
+
+    /* ─── SCREEN NAV ─── */
+    .screen-nav {
+      background: var(--dark);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .screen-nav-title {
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .screen-nav-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .nav-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .btn-print {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+    }
+
+    .btn-back {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .print-tip {
+      background: rgba(212,168,83,0.12);
+      border: 1px solid rgba(212,168,83,0.3);
+      color: rgba(255,255,255,0.6);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 12px;
+      line-height: 1.5;
+      width: 100%;
+    }
+
+    .print-tip strong { color: var(--gold); }
+
+    /* ══════════════════════════════════
+       PAGE 1 — FRONT COVER + OVERVIEW
+    ══════════════════════════════════ */
+
+    /* COVER BAND — top 40% of page 1 */
+    .cover-band {
+      background: var(--dark);
+      padding: 52px 48px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 0%, rgba(255,90,95,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 60% at 90% 100%, rgba(0,166,153,0.15) 0%, transparent 55%);
+      pointer-events: none;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cover-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .cover-title {
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .cover-title span {
+      color: var(--primary);
+    }
+
+    .cover-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.55;
+      max-width: 400px;
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .cover-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .cover-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .pill-red   { background: rgba(255,90,95,0.18); color: #ff8a8d; border: 1px solid rgba(255,90,95,0.3); }
+    .pill-teal  { background: rgba(0,166,153,0.15); color: #4dd0c8; border: 1px solid rgba(0,166,153,0.3); }
+    .pill-gold  { background: rgba(212,168,83,0.15); color: var(--gold); border: 1px solid rgba(212,168,83,0.3); }
+
+    /* BODY of page 1 */
+    .p1-body {
+      padding: 36px 48px 40px;
+    }
+
+    .p1-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+
+    .p1-section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .p1-section-label::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 1px;
+    }
+
+    .p1-heading {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .p1-para {
+      font-size: 11.5px;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* Highlights */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .hl-item {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .hl-emoji { font-size: 18px; line-height: 1; flex-shrink: 0; }
+
+    .hl-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .hl-body {
+      font-size: 10px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Amenities strip */
+    .amenity-strip {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .amenity-strip-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .amenity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ══════════════════════════════════
+       PAGE 2 — QR CODES + CONTACT
+    ══════════════════════════════════ */
+
+    .p2-header {
+      background: var(--dark);
+      padding: 32px 48px 28px;
+      position: relative;
+      overflow: hidden;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .p2-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 5% 50%, rgba(255,90,95,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 70% at 95% 50%, rgba(0,166,153,0.12) 0%, transparent 55%);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .p2-header-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.8px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .p2-header-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      position: relative;
+    }
+
+    .p2-body {
+      padding: 32px 48px 36px;
+    }
+
+    /* QR grid */
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .qr-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .qr-card.airbnb-qr   { border-color: rgba(255,90,95,0.35); }
+    .qr-card.booking-qr  { border-color: rgba(0,166,153,0.35); }
+    .qr-card.whatsapp-qr { border-color: rgba(37,211,102,0.35); }
+    .qr-card.website-qr  { border-color: rgba(212,168,83,0.35); }
+
+    .qr-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      display: block;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .qr-card-platform {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+
+    .airbnb-qr   .qr-card-platform { color: var(--primary); }
+    .booking-qr  .qr-card-platform { color: var(--secondary); }
+    .whatsapp-qr .qr-card-platform { color: #25D366; }
+    .website-qr  .qr-card-platform { color: var(--gold); }
+
+    .qr-card-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* Contact + Location row */
+    .p2-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
+
+    .p2-block-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .p2-block-label::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 1px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 11.5px;
+    }
+
+    .contact-row-icon { font-size: 15px; flex-shrink: 0; }
+
+    .contact-row-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .contact-row-val {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .contact-row-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Location block */
+    .location-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .loc-row {
+      display: flex;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-light);
+      align-items: flex-start;
+      line-height: 1.5;
+    }
+
+    .loc-row-icon { font-size: 15px; flex-shrink: 0; }
+
+    /* Page footer bar */
+    .page-footer-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--dark);
+      padding: 12px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page-footer-brand {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .page-footer-loc {
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .page-footer-num {
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ensure page 2 body doesn't overlap footer */
+    .p2-body { padding-bottom: 60px; }
+    .p1-body { padding-bottom: 52px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── SCREEN NAV (hidden on print) ── -->
+  <div class="screen-nav no-print">
+    <div>
+      <div class="screen-nav-title">Print Brochure — The Nest in Leuven</div>
+    </div>
+    <div class="screen-nav-btns">
+      <a href="brochure.html" class="nav-btn btn-back">← Back to Brochure</a>
+      <button class="nav-btn btn-print" onclick="window.print()">🖨 Print / Save as PDF</button>
+    </div>
+    <div class="print-tip">
+      <strong>How to save as PDF:</strong> Click "Print / Save as PDF" above → in the print dialog choose <strong>Save as PDF</strong> as the destination → set paper size to <strong>A4</strong>, margins to <strong>None</strong>, and enable <strong>Background graphics</strong> → Save.
+    </div>
+  </div>
+
+  <!-- ══════════════
+       PAGE 1
+  ══════════════ -->
+  <div class="page">
+
+    <!-- Cover band -->
+    <div class="cover-band">
+      <div class="cover-eyebrow">Vacation Rental · Leuven, Belgium</div>
+      <div class="cover-title">The Nest<br><span>in Leuven</span></div>
+      <p class="cover-sub">A family-friendly, cosy place to stay — your home away from home in the heart of Belgium.</p>
+      <div class="cover-pills">
+        <span class="cover-pill pill-red">🏡 Family Friendly</span>
+        <span class="cover-pill pill-teal">📍 Kessel-Lo, Leuven</span>
+        <span class="cover-pill pill-gold">⭐ Superhost on Airbnb</span>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="p1-body">
+
+      <div class="p1-cols">
+
+        <!-- Left: About -->
+        <div>
+          <div class="p1-section-label">Our Space</div>
+          <h2 class="p1-heading">A cosy nest in the heart of Leuven</h2>
+          <p class="p1-para">Nestled in the charming neighbourhood of Kessel-Lo, just minutes from the vibrant city centre of Leuven, The Nest offers a warm and welcoming retreat for families, couples, and solo travellers.</p>
+          <br>
+          <p class="p1-para">Our space is designed with comfort and practicality in mind — every detail has been considered so you can settle in quickly and feel right at home, whether you're here for a weekend getaway or an extended stay.</p>
+          <br>
+          <p class="p1-para">With easy access to KU Leuven, the Grand Béguinage (UNESCO), excellent local restaurants, and great public transport links, The Nest puts you perfectly placed to explore everything this vibrant Belgian city has to offer.</p>
+        </div>
+
+        <!-- Right: Highlights -->
+        <div>
+          <div class="p1-section-label">Highlights</div>
+          <h2 class="p1-heading">Why guests love it</h2>
+          <div class="highlights-grid">
+            <div class="hl-item">
+              <span class="hl-emoji">🏡</span>
+              <div>
+                <div class="hl-title">Cosy &amp; Welcoming</div>
+                <div class="hl-body">Warm interiors and a home-like atmosphere.</div>
+              </div>
+            </div>
+            <div class="hl-item">
+              <span class="hl-emoji">👨‍👩‍👧</span>
+              <div>
+                <div class="hl-title">Family Friendly</div>
+                <div class="hl-body">Set up to accommodate families with children.</div>
+              </div>
+            </div>
+            <div class="hl-item">
+              <span class="hl-emoji">📍</span>
+              <div>
+                <div class="hl-title">Prime Location</div>
+                <div class="hl-body">Minutes from central Leuven &amp; KU Leuven.</div>
+              </div>
+            </div>
+            <div class="hl-item">
+              <span class="hl-emoji">⭐</span>
+              <div>
+                <div class="hl-title">Superhost Status</div>
+                <div class="hl-body">Consistently top-rated on Airbnb.</div>
+              </div>
+            </div>
+            <div class="hl-item">
+              <span class="hl-emoji">✈️</span>
+              <div>
+                <div class="hl-title">Airport Access</div>
+                <div class="hl-body">Brussels Airport ~25 min by train or car.</div>
+              </div>
+            </div>
+            <div class="hl-item">
+              <span class="hl-emoji">🔑</span>
+              <div>
+                <div class="hl-title">Self Check-in</div>
+                <div class="hl-body">Flexible, hassle-free arrival any time.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Amenities strip -->
+      <div class="amenity-strip">
+        <div class="p1-section-label">Amenities</div>
+        <div class="amenity-strip-inner">
+          <span class="amenity-badge">📶 Fast Wi-Fi</span>
+          <span class="amenity-badge">🛁 Private Bathroom</span>
+          <span class="amenity-badge">🍳 Kitchen Access</span>
+          <span class="amenity-badge">🛏️ Cosy Beds</span>
+          <span class="amenity-badge">🧺 Washing Machine</span>
+          <span class="amenity-badge">🅿️ Parking Nearby</span>
+          <span class="amenity-badge">🌿 Garden / Outdoor</span>
+          <span class="amenity-badge">🔑 Self Check-in</span>
+          <span class="amenity-badge">🧼 Essentials Provided</span>
+          <span class="amenity-badge">🐾 Pet Friendly</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="page-footer-bar">
+      <span class="page-footer-brand">The Nest in Leuven</span>
+      <span class="page-footer-loc">📍 Leuvensestraat 27, 3010 Kessel-Lo, Leuven, Belgium</span>
+      <span class="page-footer-num">1 / 2</span>
+    </div>
+
+  </div><!-- end page 1 -->
+
+
+  <!-- ══════════════
+       PAGE 2
+  ══════════════ -->
+  <div class="page">
+
+    <div class="p2-header">
+      <div class="p2-header-title">Scan &amp; Book Instantly</div>
+      <div class="p2-header-sub">Point your phone camera at any QR code to go directly to that listing or reach us.</div>
+    </div>
+
+    <div class="p2-body">
+
+      <!-- QR grid: 3 columns × 2 rows = 6 cards -->
+      <div class="qr-grid">
+
+        <div class="qr-card airbnb-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=FF5A5F&bgcolor=ffffff&data=https%3A%2F%2Fwww.airbnb.co.uk%2Frooms%2F1182753856160924238" alt="Airbnb Listing 1">
+          <span class="qr-card-platform">airbnb</span>
+          <span class="qr-card-label">Listing 1<br>View &amp; Book</span>
+        </div>
+
+        <div class="qr-card airbnb-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=FF5A5F&bgcolor=ffffff&data=https%3A%2F%2Fwww.airbnb.co.uk%2Frooms%2F1161040447296054100" alt="Airbnb Listing 2">
+          <span class="qr-card-platform">airbnb</span>
+          <span class="qr-card-label">Listing 2<br>View &amp; Book</span>
+        </div>
+
+        <div class="qr-card booking-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=00A699&bgcolor=ffffff&data=https%3A%2F%2Fwww.booking.com%2FPulse-VU2ITG" alt="Booking.com Property 1">
+          <span class="qr-card-platform">Booking.com</span>
+          <span class="qr-card-label">Property 1<br>Check Rates</span>
+        </div>
+
+        <div class="qr-card booking-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=00A699&bgcolor=ffffff&data=https%3A%2F%2Fwww.booking.com%2FPulse-wJS7Nk" alt="Booking.com Property 2">
+          <span class="qr-card-platform">Booking.com</span>
+          <span class="qr-card-label">Property 2<br>Check Rates</span>
+        </div>
+
+        <div class="qr-card whatsapp-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=25D366&bgcolor=ffffff&data=https%3A%2F%2Fwa.me%2F32478941255" alt="WhatsApp">
+          <span class="qr-card-platform">WhatsApp</span>
+          <span class="qr-card-label">Message your host<br>directly</span>
+        </div>
+
+        <div class="qr-card website-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=D4A853&bgcolor=ffffff&data=https%3A%2F%2Fbijaybhandari.github.io%2FAirbnb_VisitingCard_and_BookingHub%2F" alt="Booking Hub Website">
+          <span class="qr-card-platform">Booking Hub</span>
+          <span class="qr-card-label">Our website<br>All listings in one place</span>
+        </div>
+
+      </div>
+
+      <!-- Contact + Location -->
+      <div class="p2-bottom">
+
+        <div>
+          <div class="p2-block-label">Contact</div>
+          <div class="contact-list">
+            <div class="contact-row">
+              <span class="contact-row-icon">👤</span>
+              <div>
+                <div class="contact-row-lbl">Host</div>
+                <div class="contact-row-val">Bikash Adhakari</div>
+                <div class="contact-row-sub">Co-host: Sangita Bhandari</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-icon">📞</span>
+              <div>
+                <div class="contact-row-lbl">Phone &amp; WhatsApp</div>
+                <div class="contact-row-val">+32 478 941 255</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-icon">✉️</span>
+              <div>
+                <div class="contact-row-lbl">Email</div>
+                <div class="contact-row-val">tourist.accomodation@outlook.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="p2-block-label">Location</div>
+          <div class="location-block">
+            <div class="loc-row">
+              <span class="loc-row-icon">📍</span>
+              <span>Leuvensestraat 27, 3010 Kessel-Lo, Leuven, Belgium</span>
+            </div>
+            <div class="loc-row">
+              <span class="loc-row-icon">🚌</span>
+              <span>Bus stops within walking distance. Central Leuven reachable in minutes.</span>
+            </div>
+            <div class="loc-row">
+              <span class="loc-row-icon">🏛️</span>
+              <span>KU Leuven · Grand Béguinage (UNESCO) · Oude Markt · Town Hall</span>
+            </div>
+            <div class="loc-row">
+              <span class="loc-row-icon">✈️</span>
+              <span>Brussels Airport (BRU) ~25 min by train or car</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="page-footer-bar">
+      <span class="page-footer-brand">The Nest in Leuven</span>
+      <span class="page-footer-loc">tourist.accomodation@outlook.com · +32 478 941 255</span>
+      <span class="page-footer-num">2 / 2</span>
+    </div>
+
+  </div><!-- end page 2 -->
+
+</body>
+</html>

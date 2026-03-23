@@ -160,6 +160,30 @@
       margin: 36px auto 0;
     }
 
+    .hero-pdf-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      background: rgba(212,168,83,0.15);
+      border: 1px solid rgba(212,168,83,0.35);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      z-index: 2;
+    }
+
+    .hero-pdf-btn:hover {
+      background: rgba(212,168,83,0.25);
+      transform: translateY(-1px);
+    }
+
     /* ─── LAYOUT ─── */
     .page {
       max-width: 960px;
@@ -608,6 +632,7 @@
     .scan-card.airbnb-card:hover { border-color: var(--primary); }
     .scan-card.booking-card:hover { border-color: var(--secondary); }
     .scan-card.whatsapp-card:hover { border-color: #25D366; }
+    .scan-card.website-card:hover { border-color: var(--gold); }
 
     .scan-card img {
       width: 110px;
@@ -626,6 +651,7 @@
     .scan-card.airbnb-card .scan-card-platform { color: var(--primary); }
     .scan-card.booking-card .scan-card-platform { color: var(--secondary); }
     .scan-card.whatsapp-card .scan-card-platform { color: #25D366; }
+    .scan-card.website-card .scan-card-platform { color: var(--gold); }
 
     .scan-card-label {
       font-size: 12px;
@@ -872,6 +898,10 @@
         <polyline points="15 18 9 12 15 6"/>
       </svg>
       Back to Booking Hub
+    </a>
+
+    <a href="brochure-print.html" class="hero-pdf-btn">
+      🖨 Print / Save PDF
     </a>
 
     <div class="hero-badge">Leuven, Belgium</div>
@@ -1149,6 +1179,12 @@
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&color=25D366&bgcolor=ffffff&data=https%3A%2F%2Fwa.me%2F32478941255" alt="Scan to open WhatsApp" loading="lazy">
           <span class="scan-card-platform">WhatsApp</span>
           <span class="scan-card-label">Message your host</span>
+        </a>
+
+        <a class="scan-card website-card" href="https://bijaybhandari.github.io/Airbnb_VisitingCard_and_BookingHub/" target="_blank" rel="noopener noreferrer">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&color=D4A853&bgcolor=ffffff&data=https%3A%2F%2Fbijaybhandari.github.io%2FAirbnb_VisitingCard_and_BookingHub%2F" alt="Scan to open Booking Hub website" loading="lazy">
+          <span class="scan-card-platform">Booking Hub</span>
+          <span class="scan-card-label">Our website</span>
         </a>
       </div>
     </section>
